@@ -12,10 +12,15 @@ const PORT = process.env.PORT || 6970;
 
 const allowedOrigin =
   process.env.NODE_ENV === 'production'
-    ? process.env.FRONTEND_URL 
-    : process.env.FRONTEND_URL || 'http://localhost:6969';
+    ? process.env.FRONTEND_URL
+    : 'http://localhost:6969';  // For development purposes
 
-app.use(cors({ origin: allowedOrigin }));
+app.use(cors({
+  origin: allowedOrigin,
+  methods: ['GET', 'POST'],
+  credentials: true, 
+}));
+
 
 const server = createServer(app);
 const io = new Server(server, {
